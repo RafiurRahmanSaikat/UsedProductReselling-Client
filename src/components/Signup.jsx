@@ -1,12 +1,12 @@
 import { Button } from "@material-tailwind/react";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import SignupPic from "../assets/signup.gif";
 import { AuthContext } from "../context/AuthProvider";
 const Signup = () => {
   const { setProfile, SignUp, GoogleSignIn } = useContext(AuthContext);
-
+  const navigate=useNavigate()
   const REGISTER = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -26,6 +26,7 @@ const Signup = () => {
         .then(res=>{
           console.log('User After Update',res);
           toast.success(" User Created Successfull!");
+          navigate('/')
 
         })
         .catch((error) => {console.log(error)
@@ -34,6 +35,17 @@ const Signup = () => {
       })
       .catch((error) => {console.log(error)
         toast.error("Failed to Create User!");});
+  };
+
+  const GoogleLogIn = () => {
+    GoogleSignIn()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate("/");
+        toast.success(" User Created  Successfull!");
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -94,6 +106,8 @@ const Signup = () => {
               </Button>
             </div>
             <Button
+
+            onClick={GoogleLogIn}
               aria-label="Login with Google"
               type="button"
               className="flex items-center justify-center w-full   border rounded-md  "

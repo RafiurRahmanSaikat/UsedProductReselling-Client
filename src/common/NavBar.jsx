@@ -1,9 +1,11 @@
 import { Button } from "@material-tailwind/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthProvider";
 
 const Navbar = () => {
   const [state, setState] = useState(false);
+  const { user, logOut } = useContext(AuthContext);
 
   const menu = (
     <>
@@ -14,34 +16,40 @@ const Navbar = () => {
           </Button>
         </Link>
       </li>
-      <li className="">
-        <Link to="/dashboard">
-          <Button size="sm" variant="gradient">
-            Dashboard
-          </Button>
-        </Link>
-      </li>
-      <li className="">
-        <Link to="/login">
-          <Button color="green" size="sm" variant="gradient">
-            Login
-          </Button>
-        </Link>
-      </li>
-      <li className="">
-        <Link to="/signup">
-          <Button color="purple" size="sm" variant="gradient">
-            SignUp
-          </Button>
-        </Link>
-      </li>
-      <li className="">
-        <Link to="/">
-          <Button color="red" size="sm" variant="gradient">
-            Logout
-          </Button>
-        </Link>
-      </li>
+
+      {user?.uid ? (
+        <>
+          <li className="">
+            <Link to="/dashboard">
+              <Button size="sm" variant="gradient">
+                Dashboard
+              </Button>
+            </Link>
+          </li>
+          <li className="">
+            <Button onClick={logOut} color="red" size="sm" variant="gradient">
+              Logout
+            </Button>
+          </li>
+        </>
+      ) : (
+        <>
+          <li className="">
+            <Link to="/login">
+              <Button color="green" size="sm" variant="gradient">
+                Login
+              </Button>
+            </Link>
+          </li>
+          <li className="">
+            <Link to="/signup">
+              <Button color="purple" size="sm" variant="gradient">
+                SignUp
+              </Button>
+            </Link>
+          </li>
+        </>
+      )}
     </>
   );
 

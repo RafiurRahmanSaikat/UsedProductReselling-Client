@@ -1,12 +1,13 @@
 import { Button } from "@material-tailwind/react";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import loginPic from "../assets/login.gif";
 import { AuthContext } from "../context/AuthProvider";
 const Login = () => {
   const { login, GoogleSignIn } = useContext(AuthContext);
 
+  const navigate = useNavigate();
   const SUBMIT = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -18,6 +19,7 @@ const Login = () => {
         const user = result.user;
 
         console.log(user);
+        navigate("/");
         toast.success(" User Log in Successfull!");
       })
       .catch((error) => console.log(error));
@@ -30,6 +32,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        navigate("/");
         toast.success(" User Log in Successfull!");
       })
       .catch((error) => console.log(error));
