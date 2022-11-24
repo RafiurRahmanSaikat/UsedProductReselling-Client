@@ -1,3 +1,4 @@
+import { Button } from "@material-tailwind/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -7,16 +8,20 @@ const Navbar = () => {
   const menu = (
     <>
       <li className="">
-        <Link>Dashboard</Link>
+        <Link><Button size="sm" variant="gradient">Blogs </Button></Link>
       </li>
       <li className="">
-        <Link>Blogs</Link>
+      <Link><Button size="sm" variant="gradient">Dashboard</Button></Link>
       </li>
       <li className="">
-        <Link to='/login'>Login</Link>
+        <Link to='/login'><Button color="green" size="sm" variant="gradient">Login</Button></Link>
       </li>
       <li className="">
-        <Link to='/signup'>Sign Up</Link>
+      <Link to='/signup'><Button color="purple" size="sm" variant="gradient">SignUp</Button></Link>
+      
+      </li>
+      <li className="">
+        <Link to='/'><Button color="red" size="sm" variant="gradient">Logout</Button></Link>
       </li>
     </>
   );
