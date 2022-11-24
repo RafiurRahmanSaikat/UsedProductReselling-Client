@@ -1,8 +1,41 @@
 import { Button } from "@material-tailwind/react";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import SignupPic from "../assets/signup.gif";
+import { AuthContext } from "../context/AuthProvider";
 const Signup = () => {
+  const { setProfile, SignUp, GoogleSignIn } = useContext(AuthContext);
+
+  const REGISTER = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    console.log(email, name, password);
+    const UpdateUserData = {
+      displayName: name,
+    };
+    SignUp(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log("User From Firebase",user);
+        setProfile(UpdateUserData)
+        .then(res=>{
+          console.log('User After Update',res);
+          toast.success(" User Created Successfull!");
+
+        })
+        .catch((error) => {console.log(error)
+          toast.error("Failed to Update User!");
+        } );
+      })
+      .catch((error) => {console.log(error)
+        toast.error("Failed to Create User!");});
+  };
+
   return (
     <div className="hero min-h-screen ">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -11,13 +44,14 @@ const Signup = () => {
           <img src={SignupPic} alt="" />
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <form className="card-body">
+          <form onSubmit={REGISTER} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
               </label>
               <input
                 type="text"
+                name="name"
                 placeholder="name"
                 className="input input-bordered"
               />
@@ -28,6 +62,7 @@ const Signup = () => {
               </label>
               <input
                 type="text"
+                name="email"
                 placeholder="email"
                 className="input input-bordered"
               />
@@ -39,6 +74,7 @@ const Signup = () => {
               <input
                 type="text"
                 placeholder="password"
+                name="password"
                 className="input input-bordered"
               />
               <label className="label">
@@ -53,7 +89,7 @@ const Signup = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <Button color="green" className="text-base">
+              <Button type="submit" color="green" className="text-base">
                 Register
               </Button>
             </div>

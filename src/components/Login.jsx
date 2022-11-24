@@ -1,18 +1,40 @@
 import { Button } from "@material-tailwind/react";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import loginPic from "../assets/login.gif";
-
+import { AuthContext } from "../context/AuthProvider";
 const Login = () => {
+  const { login, GoogleSignIn } = useContext(AuthContext);
+
   const SUBMIT = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
     const type = form.type.value;
+    login(email, password)
+      .then((result) => {
+        const user = result.user;
+
+        console.log(user);
+        toast.success(" User Log in Successfull!");
+      })
+      .catch((error) => console.log(error));
 
     console.log(email, type, password);
   };
+
+  const GoogleLogIn = () => {
+    GoogleSignIn()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast.success(" User Log in Successfull!");
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div className="hero min-h-screen ">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -23,7 +45,7 @@ const Login = () => {
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <form onSubmit={SUBMIT} className="card-body">
             <div className="badge badge-primary w-full p-4 text-xl   badge-outline">
-              What is  Your Purpose ?
+              What is Your Purpose ?
             </div>
             <select id="type" className="select select-info w-full max-w-xs">
               <option value="buyer">Buy a Bike</option>
@@ -68,6 +90,7 @@ const Login = () => {
               </Button>
             </div>
             <Button
+              onClick={GoogleLogIn}
               aria-label="Login with Google"
               type="button"
               className="flex items-center justify-center w-full   border rounded-md  "
