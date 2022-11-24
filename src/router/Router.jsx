@@ -1,3 +1,4 @@
+import CategoryPage from "../components/CategoryPage/CategoryPage";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
 
@@ -13,7 +14,7 @@ export const router = createBrowserRouter([
         {path:'/',element:<Home></Home>},
         {path:'/login',element:<Login></Login>},
         {path:'/signup',element:<Signup></Signup>},
-        {path:'/category/:id',element:<p>/category/:id</p>},
+        {path:'/category/:id',element:<CategoryPage></CategoryPage>},
     ],
   },
 ]);

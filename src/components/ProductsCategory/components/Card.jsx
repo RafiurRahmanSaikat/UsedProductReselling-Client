@@ -1,5 +1,6 @@
 import { Button } from "@material-tailwind/react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Card = ({}) => {
   return (
@@ -16,7 +17,7 @@ const Card = ({}) => {
             Cat name
           </h3>
           <Button color="amber" size="lg">
-            See All bikes
+            <Link to="/category/:id">See All bikes</Link>
           </Button>
         </div>
       </article>
