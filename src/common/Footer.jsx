@@ -89,7 +89,7 @@ const Footer = () => {
                 </div>
             </div>
             
-            <style jsx>
+            <style >
                 
                 {`
                 .svg-icon path,

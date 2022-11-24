@@ -8,20 +8,39 @@ const Navbar = () => {
   const menu = (
     <>
       <li className="">
-        <Link><Button size="sm" variant="gradient">Blogs </Button></Link>
+        <Link>
+          <Button size="sm" variant="gradient">
+            Blogs{" "}
+          </Button>
+        </Link>
       </li>
       <li className="">
-      <Link><Button size="sm" variant="gradient">Dashboard</Button></Link>
+        <Link to="/dashboard">
+          <Button size="sm" variant="gradient">
+            Dashboard
+          </Button>
+        </Link>
       </li>
       <li className="">
-        <Link to='/login'><Button color="green" size="sm" variant="gradient">Login</Button></Link>
+        <Link to="/login">
+          <Button color="green" size="sm" variant="gradient">
+            Login
+          </Button>
+        </Link>
       </li>
       <li className="">
-      <Link to='/signup'><Button color="purple" size="sm" variant="gradient">SignUp</Button></Link>
-      
+        <Link to="/signup">
+          <Button color="purple" size="sm" variant="gradient">
+            SignUp
+          </Button>
+        </Link>
       </li>
       <li className="">
-        <Link to='/'><Button color="red" size="sm" variant="gradient">Logout</Button></Link>
+        <Link to="/">
+          <Button color="red" size="sm" variant="gradient">
+            Logout
+          </Button>
+        </Link>
       </li>
     </>
   );
@@ -31,14 +50,20 @@ const Navbar = () => {
       <nav className="bg-white w-full top-0 z-20">
         <div className="items-center  px-4 max-w-screen-xl mx-auto lg:flex lg:px-8">
           <div className="flex items-center justify-between py-3 lg:py-4 lg:block">
-            <a href=" ">
+            <label
+              htmlFor=" DashboardDrawer"
+              className="btn btn-circle drawer-button lg:hidden"
+            >
+              Menu
+            </label>
+            <Link to="/">
               <img
                 src="https://www.floatui.com/logo.svg"
                 width={120}
                 height={50}
                 alt="Float UI logo"
               />
-            </a>
+            </Link>
             <div className="lg:hidden">
               <button
                 className="text-gray-700 outline-none p-2 rounded-md focus:border-gray-400 focus:border"
