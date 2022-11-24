@@ -4,9 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import SignupPic from "../assets/signup.gif";
 import { AuthContext } from "../context/AuthProvider";
+
 const Signup = () => {
   const { setProfile, SignUp, GoogleSignIn } = useContext(AuthContext);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+
   const REGISTER = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -15,37 +17,72 @@ const Signup = () => {
     const password = form.password.value;
 
     console.log(email, name, password);
+
     const UpdateUserData = {
       displayName: name,
     };
+    const DBuser = {
+      name,
+      email,
+      role: "buyer",
+    };
+
     SignUp(email, password)
       .then((result) => {
         const user = result.user;
-        console.log("User From Firebase",user);
+        console.log("User From Firebase", user);
         setProfile(UpdateUserData)
-        .then(res=>{
-          console.log('User After Update',res);
-          toast.success(" User Created Successfull!");
-          navigate('/')
-
-        })
-        .catch((error) => {console.log(error)
-          toast.error("Failed to Update User!");
-        } );
+          .then((res) => {
+            console.log("User After Update", res);
+            toast.success(" User Created Successfull!");
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error("Failed to Update User!");
+          });
       })
-      .catch((error) => {console.log(error)
-        toast.error("Failed to Create User!");});
+      .then(
+        fetch("http://localhost:5000/adduser", {
+          method: "post",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(DBuser),
+        })
+          .catch((error) => {
+            console.error("DB USER ", error);
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error("Failed to Create User!");
+          })
+      );
   };
 
   const GoogleLogIn = () => {
     GoogleSignIn()
       .then((result) => {
         const user = result.user;
+        const DbUser={
+          name:user.displayName,
+          email:user.email,
+          role: "buyer",
+        }
         console.log(user);
         navigate("/");
         toast.success(" User Created  Successfull!");
+        fetch('http://localhost:5000/adduser',{
+          method: "post",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(DbUser),
+        })
+        .catch((error) => console.error(error));
+        
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
+      
   };
 
   return (
@@ -106,8 +143,7 @@ const Signup = () => {
               </Button>
             </div>
             <Button
-
-            onClick={GoogleLogIn}
+              onClick={GoogleLogIn}
               aria-label="Login with Google"
               type="button"
               className="flex items-center justify-center w-full   border rounded-md  "

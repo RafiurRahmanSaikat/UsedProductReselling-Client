@@ -59,11 +59,12 @@ const Navbar = () => {
         <div className="items-center  px-4 max-w-screen-xl mx-auto lg:flex lg:px-8">
           <div className="flex items-center justify-between py-3 lg:py-4 lg:block">
             <label
-              htmlFor=" DashboardDrawer"
-              className="btn btn-circle drawer-button lg:hidden"
+              htmlFor="DashboardDrawer"
+              className="btn btn-circle  drawer-button lg:hidden"
             >
               Menu
             </label>
+
             <Link to="/">
               <img
                 src="https://www.floatui.com/logo.svg"

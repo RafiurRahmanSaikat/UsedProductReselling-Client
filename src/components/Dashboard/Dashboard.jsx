@@ -26,20 +26,16 @@ const Dashboard = () => {
   return (
     <div>
       <div className="drawer drawer-mobile">
-        <input
-          id=" DashboardDrawer"
-          type="checkbox"
-          className="drawer-toggle"
-        />
-
+        <input id="DashboardDrawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content ">
-          <section>
-            <UserDashboard></UserDashboard>
-          </section>
+          <UserDashboard></UserDashboard>
+          {/* <!-- Page content here --> */}
         </div>
         <div className="drawer-side">
-          <label htmlFor=" DashboardDrawer" className="drawer-overlay"></label>
-          <ul className="menu  w-80 bg-base-100 text-base-content">{menu}</ul>
+          <label htmlFor="DashboardDrawer" className="drawer-overlay"></label>
+          <ul className="menu p-4 w-80 bg-base-100 text-base-content">
+            {menu}
+          </ul>
         </div>
       </div>
     </div>
