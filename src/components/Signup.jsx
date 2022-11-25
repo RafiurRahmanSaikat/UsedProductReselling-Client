@@ -15,6 +15,7 @@ const Signup = () => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
+    const type = form.type.value;
 
     console.log(email, name, password);
 
@@ -24,7 +25,7 @@ const Signup = () => {
     const DBuser = {
       name,
       email,
-      role: "buyer",
+      role: type,
     };
 
     SignUp(email, password)
@@ -91,6 +92,13 @@ const Signup = () => {
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <form onSubmit={REGISTER} className="card-body">
+            <div className="badge badge-primary w-full p-4 text-xl   badge-outline">
+              What is Your Purpose ?
+            </div>
+            <select id="type" className="select select-info w-full max-w-xs">
+              <option value="buyer">Buy a Bike</option>
+              <option value="seller">Sell a Bike</option>
+            </select>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>

@@ -13,7 +13,7 @@ const Login = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    const type = form.type.value;
+   
     login(email, password)
       .then((result) => {
         const user = result.user;
@@ -24,7 +24,7 @@ const Login = () => {
       })
       .catch((error) => console.log(error));
 
-    console.log(email, type, password);
+    console.log(email, password);
   };
 
   const GoogleLogIn = () => {
@@ -47,13 +47,7 @@ const Login = () => {
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <form onSubmit={SUBMIT} className="card-body">
-            <div className="badge badge-primary w-full p-4 text-xl   badge-outline">
-              What is Your Purpose ?
-            </div>
-            <select id="type" className="select select-info w-full max-w-xs">
-              <option value="buyer">Buy a Bike</option>
-              <option value="seller">Sell a Bike</option>
-            </select>
+            
 
             <div className="form-control">
               <label className="label">

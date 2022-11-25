@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Card = ({ data }) => {
-  const { about, brandPic, brand } = data;
+  const { brandPic, brand } = data;
   // console.log(data, { about, brandPic, brand });
   return (
     <>
