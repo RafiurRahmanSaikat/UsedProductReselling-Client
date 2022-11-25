@@ -1,11 +1,12 @@
 import { Button } from "@material-tailwind/react";
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 
 const Navbar = () => {
   const [state, setState] = useState(false);
   const { user, logOut } = useContext(AuthContext);
+  const navigate=useNavigate()
 
   const menu = (
     <>
@@ -27,7 +28,9 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="">
-            <Button onClick={logOut} color="red" size="sm" variant="gradient">
+            <Button onClick={()=>{logOut()
+            navigate('/')
+            }} color="red" size="sm" variant="gradient">
               Logout
             </Button>
           </li>
