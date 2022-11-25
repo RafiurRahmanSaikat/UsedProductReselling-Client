@@ -1,44 +1,45 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import UserDashboard from "./components/UserDashboard";
+import { Link, Outlet } from "react-router-dom";
+import Navbar from "../../common/NavBar";
 
 const Dashboard = () => {
-  const menu = (
-    <>
-      <li className="btm-nav">
-        <Link>My Orders</Link>
-      </li>
-      <li className="btm-nav">
-        <Link>Add A Product</Link>
-      </li>
-      <li className="btm-nav">
-        <Link>All Seller</Link>
-      </li>
-      <li className="btm-nav">
-        <Link>All Buyers </Link>
-      </li>
-      <li className="btm-nav">
-        <Link>Reported Items </Link>
-      </li>
-    </>
-  );
+ 
 
   return (
-    <div>
+    <section>
+      <Navbar></Navbar>
       <div className="drawer drawer-mobile">
         <input id="DashboardDrawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content ">
-          <UserDashboard></UserDashboard>
+        <div className="drawer-content">
+
+          <Outlet></Outlet>
+
           {/* <!-- Page content here --> */}
+
         </div>
+
         <div className="drawer-side">
           <label htmlFor="DashboardDrawer" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80 bg-base-100 text-base-content">
-            {menu}
+          <ul className="menu p-8  w-80 bg-base-100 text-center text-base-content">
+            <li className="">
+              <Link to='/dashboard/myorders'>My Orders</Link>
+            </li>
+            <li className="">
+              <Link to="/dashboard/addproduct">Add A Product</Link>
+            </li>
+            <li className="">
+              <Link to='/dashboard'>All Seller</Link>
+            </li>
+            <li className="">
+              <Link to='/dashboard'>All Buyers </Link>
+            </li>
+            <li className="">
+              <Link to='/dashboard'>Reported Items </Link>
+            </li>
           </ul>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

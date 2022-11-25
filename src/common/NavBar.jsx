@@ -12,7 +12,7 @@ const Navbar = () => {
       <li className="">
         <Link>
           <Button size="sm" variant="gradient">
-            Blogs{" "}
+            Blogs
           </Button>
         </Link>
       </li>

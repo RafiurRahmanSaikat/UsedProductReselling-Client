@@ -63,26 +63,23 @@ const Signup = () => {
     GoogleSignIn()
       .then((result) => {
         const user = result.user;
-        const DbUser={
-          name:user.displayName,
-          email:user.email,
+        const DbUser = {
+          name: user.displayName,
+          email: user.email,
           role: "buyer",
-        }
+        };
         console.log(user);
         navigate("/");
         toast.success(" User Created  Successfull!");
-        fetch('http://localhost:5000/adduser',{
+        fetch("http://localhost:5000/adduser", {
           method: "post",
           headers: {
             "content-type": "application/json",
           },
           body: JSON.stringify(DbUser),
-        })
-        .catch((error) => console.error(error));
-        
+        }).catch((error) => console.error(error));
       })
       .catch((error) => console.error(error));
-      
   };
 
   return (

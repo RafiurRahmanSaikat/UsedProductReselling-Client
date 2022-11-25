@@ -1,6 +1,7 @@
 import CategoryPage from "../components/CategoryPage/CategoryPage";
+import AddProduct from "../components/Dashboard/components/AddProduct";
+import UserDashboard from "../components/Dashboard/components/UserDashboard";
 import Dashboard from "../components/Dashboard/Dashboard";
-import Formsss from "../components/Formsss";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
 
@@ -16,9 +17,18 @@ export const router = createBrowserRouter([
         {path:'/',element:<Home></Home>},
         {path:'/login',element:<Login></Login>},
         {path:'/signup',element:<Signup></Signup>},
-        {path:'/dashboard',element:<Dashboard></Dashboard>},
-        {path:'/addproduct',element:<Formsss></Formsss>},
         {path:'/category/:id',element:<CategoryPage></CategoryPage>},
     ],
   },
+  {
+    path: '/dashboard',
+    element: <Dashboard></Dashboard>,
+    errorElement: <>NAI</>,
+    children: [
+        {path: '/dashboard',element: <>nai</>},
+        {path: '/dashboard/myorders',element: <UserDashboard></UserDashboard>},
+        {path: '/dashboard/addproduct',element: <AddProduct></AddProduct>},
+        
+    ]
+}
 ]);
