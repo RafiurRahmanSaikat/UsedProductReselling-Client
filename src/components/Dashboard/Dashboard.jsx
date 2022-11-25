@@ -17,9 +17,7 @@ const Dashboard = () => {
       return data;
     },
   });
-  console.log(data?.[0]?.role);
-
-  return loading ? (
+  return loading || isLoading ? (
     <Loading></Loading>
   ) : (
     <>

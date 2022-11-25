@@ -5,11 +5,12 @@ import { useState } from "react";
 
 import { Link, useParams } from "react-router-dom";
 import BookingModal from "../ProductsCategory/components/BookingModal";
+import verifiedSeller from '../../assets/verified.png'
 
 const CategoryPage = () => {
   const { id } = useParams();
 const [selectedBike,setSelectedBike]=useState("nai")
-  const { data } = useQuery({
+  const { data ,isLoading} = useQuery({
     queryKey: ["category", id],
     queryFn: async () => {
       const res = await fetch(`http://localhost:5000/category/?search=${id}`);
@@ -62,8 +63,11 @@ const [selectedBike,setSelectedBike]=useState("nai")
                   className="flex flex-col p-4 rounded-3xl outline outline-1 -outline-offset-4"
                 >
                   <div className="flex justify-between">
-                    <p className="">Seller name : {data?.sellername} </p>
-                    <p className="text-lg font-semibold">Verified </p>
+                    <p >Seller name : {data?.sellername} </p>
+                  
+                   { data?.sellerVerified && <><img className="w-16" src={verifiedSeller} alt="" /></>
+                   }
+
                   </div>
                   <img
                     alt=""
@@ -84,14 +88,13 @@ const [selectedBike,setSelectedBike]=useState("nai")
                     Condition : {data?.condition}{" "}
                   </p>
 
-                  <p className="">Purched IN {data?.purchased} </p>
+                  <p >Used About {data?.used} Year    </p>
+                  <p >Purched Time : {data?.used} Year Ago </p>
 
                   <div className="flex justify-around items-center">
-                    <p className="">Post Time : {"DOM LO"}</p>
-                    <Button color="indigo" size="sm">
-                      <Link>Book Now</Link>
-                    </Button>
-                    <label onClick={()=>setSelectedBike(data)} htmlFor="my-modal-3" className="btn">open modal</label>
+                    <p >Post Time :  {data?.posted}</p>
+                    
+                    <label onClick={()=>setSelectedBike(data)} htmlFor="my-modal-3" className="btn btn-primary  ">Book Now</label>
                   </div>
                 </article>
               ))}

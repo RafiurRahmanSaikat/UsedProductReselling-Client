@@ -18,7 +18,7 @@ const AddProduct = () => {
       return data;
     },
   });
-
+console.log("Ckeck data",data);
   const posted = new Date(Date.now()).toString().slice(0, 16);
 
   const SUBMIT = (event) => {
@@ -40,6 +40,7 @@ const AddProduct = () => {
       posted,
       bikePic,
       sellername,
+      sellerVerified:data?.[0].verified,
       email,
       model,
       brand,
