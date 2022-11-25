@@ -26,6 +26,7 @@ const Signup = () => {
       name,
       email,
       role: type,
+      verified:false
     };
 
     SignUp(email, password)
@@ -51,7 +52,7 @@ const Signup = () => {
           body: JSON.stringify(DBuser),
         })
           .catch((error) => {
-            console.error("DB USER ", error);
+            console.error(error);
           })
           .catch((error) => {
             console.log(error);
@@ -68,6 +69,7 @@ const Signup = () => {
           name: user.displayName,
           email: user.email,
           role: "buyer",
+          verified:false
         };
         console.log(user);
         navigate("/");

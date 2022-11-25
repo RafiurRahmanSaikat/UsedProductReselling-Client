@@ -1,12 +1,14 @@
 import { Button } from "@material-tailwind/react";
 
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 import { Link, useParams } from "react-router-dom";
+import BookingModal from "../ProductsCategory/components/BookingModal";
 
 const CategoryPage = () => {
   const { id } = useParams();
-
+const [selectedBike,setSelectedBike]=useState("nai")
   const { data } = useQuery({
     queryKey: ["category", id],
     queryFn: async () => {
@@ -55,47 +57,47 @@ const CategoryPage = () => {
           <div className="mx-auto justify-center gap-8 items-center  grid  grid-cols-1 md:p-8 lg:grid-cols-2 md:grid-cols-1">
             {BikeData &&
               BikeData?.map((data) => (
-                
-                  <article
-                    key={data._id}
-                    className="flex flex-col p-4 rounded-3xl outline outline-1 -outline-offset-4"
-                  >
-                    <div className="flex justify-between">
+                <article
+                  key={data._id}
+                  className="flex flex-col p-4 rounded-3xl outline outline-1 -outline-offset-4"
+                >
+                  <div className="flex justify-between">
                     <p className="">Seller name : {data?.sellername} </p>
-                      <p className="text-lg font-semibold">Verified </p>
-                    </div>
-                    <img
-                      alt=""
-                      className="rounded-md object-left-bottom mx-auto  w-60 h-80 bg-gray-500"
-                      src={data?.bikePic}
-                    />
-                    <p className=" py-2 text-lg font-semibold ">
-                      {data?.model}
-                    </p>
+                    <p className="text-lg font-semibold">Verified </p>
+                  </div>
+                  <img
+                    alt=""
+                    className="rounded-md object-left-bottom mx-auto  w-60 h-80 bg-gray-500"
+                    src={data?.bikePic}
+                  />
+                  <p className=" py-2 text-lg font-semibold ">{data?.model}</p>
 
-                    <p className="">Orginal Price : {data?.orginalPrice} </p>
-                    <p className="text-red-600 font font-semibold">
-                      Selling Price :{data?.sellingPrice}
-                    </p>
-                    <p className="text-lg font-semibold">
-                      Location : {data?.location}
-                    </p>
-                    <p className="">Seller name : {data?.sellername} </p>
-                    <p className="text-lg font-semibold">
-                      Condition : {data?.condition}{" "}
-                    </p>
+                  <p className="">Orginal Price : {data?.orginalPrice} </p>
+                  <p className="text-red-600 font font-semibold">
+                    Selling Price :{data?.sellingPrice}
+                  </p>
+                  <p className="text-lg font-semibold">
+                    Location : {data?.location}
+                  </p>
+                  <p className="">Seller name : {data?.sellername} </p>
+                  <p className="text-lg font-semibold">
+                    Condition : {data?.condition}{" "}
+                  </p>
 
-                    <p className="">Purched IN {data?.purchased} </p>
+                  <p className="">Purched IN {data?.purchased} </p>
 
-                    <div className="flex justify-around items-center">
-                      <p className="">Post Time : {"DOM LO"}</p>
-                      <Button color="indigo" size="sm">
-                        <Link to="/category/:id">Book Now</Link>
-                      </Button>
-                    </div>
-                  </article>
-                
+                  <div className="flex justify-around items-center">
+                    <p className="">Post Time : {"DOM LO"}</p>
+                    <Button color="indigo" size="sm">
+                      <Link>Book Now</Link>
+                    </Button>
+                    <label onClick={()=>setSelectedBike(data)} htmlFor="my-modal-3" className="btn">open modal</label>
+                  </div>
+                </article>
               ))}
+
+          <BookingModal data={selectedBike}></BookingModal>
+
           </div>
         </section>
       </section>

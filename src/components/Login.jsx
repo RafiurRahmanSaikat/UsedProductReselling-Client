@@ -26,16 +26,17 @@ const Login = () => {
 
     console.log(email, password);
   };
-
   const GoogleLogIn = () => {
     GoogleSignIn()
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        navigate("/");
-        toast.success(" User Log in Successfull!");
-      })
-      .catch((error) => console.log(error));
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+      navigate("/");
+      toast.success(" User Created  Successfull!");
+  
+    })
+    .catch((error) => console.error(error));  
+  
   };
 
   return (
