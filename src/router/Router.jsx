@@ -1,9 +1,10 @@
 import CategoryPage from "../components/CategoryPage/CategoryPage";
 import AddProduct from "../components/Dashboard/components/AddProduct";
-import UserDashboard from "../components/Dashboard/components/UserDashboard";
+import MyProductDashboard from "../components/Dashboard/components/MyProductDashboard";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
+import DashBoardLayout from "../layout/DashBoardLayout";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Home } = require("../components/Home/Home");
@@ -23,11 +24,13 @@ export const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <Dashboard></Dashboard>,
-    errorElement: <>NAI</>,
+    errorElement: <>EOOR</>,
     children: [
-        {path: '/dashboard',element: <>nai</>},
-        {path: '/dashboard/myorders',element: <UserDashboard></UserDashboard>},
+        {path: '/dashboard',element: <DashBoardLayout></DashBoardLayout>},
         {path: '/dashboard/addproduct',element: <AddProduct></AddProduct>},
+        {path: '/dashboard/myproduct',element: <MyProductDashboard></MyProductDashboard>},
+        {path: '/dashboard/allbuyer',element: <>All Buyers</>},
+        {path: '/dashboard/allseller',element:  <>All Seller</>},
         
     ]
 }

@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <section className="">
       <Hero></Hero>
-      <Advertise></Advertise>
+      {/* <Advertise></Advertise> */}
       <ProductCategories></ProductCategories>
       <Newsletter></Newsletter>
     </section>

@@ -38,40 +38,34 @@ const Dashboard = () => {
                   <Link to="/dashboard/addproduct">Add A Product</Link>
                 </li>
                 <li>
-                  <Link to='/dashboard'>My Product</Link>
+                  <Link to="/dashboard">My Product</Link>
                 </li>
               </>
             ) : (
               <></>
-            )
-            }
+            )}
 
-{data?.[0]?.role === "admin" ? (
+            {data?.[0]?.role === "admin" ? (
               <>
                 <li>
-                <Link to="/dashboard">All Seller</Link>
+                  <Link to="/dashboard/allseller">All Seller</Link>
                 </li>
                 <li>
-                <Link to="/dashboard">All Buyers </Link>
+                  <Link to="/dashboard/allbuyer">All Buyers </Link>
                 </li>
               </>
             ) : (
               <></>
-            )
-            }
+            )}
             {data?.[0]?.role === "buyer" ? (
               <>
                 <li>
-                <Link to="/dashboard/myorders">My Orders</Link>
+                  <Link to="/dashboard">My Orders</Link>
                 </li>
-               
               </>
             ) : (
               <></>
-            )
-            }
-          
-
+            )}
           </ul>
         </div>
       </div>
@@ -80,6 +74,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-
-

@@ -1,6 +1,7 @@
 import { Button } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loading from "../../../common/Loading";
 import { AuthContext } from "../../../context/AuthProvider";
@@ -8,7 +9,7 @@ import { AuthContext } from "../../../context/AuthProvider";
 const AddProduct = () => {
   const { user, loading } = useContext(AuthContext);
   const email = user?.email;
-
+const navigate=useNavigate()
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["category", email],
     queryFn: async () => {
@@ -49,9 +50,14 @@ console.log("Ckeck data",data);
       orginalPrice,
       sellingPrice,
       location,
+      booked:false,
+      advertise:false,
+      sold:false,
+      paid:false,
+      
     };
 
-    console.log(addBike);
+
 
     fetch("http://localhost:5000/addbike", {
       method: "post",
@@ -62,7 +68,9 @@ console.log("Ckeck data",data);
     })
       .then((res) => {
         console.log(res);
+    
         toast.success("Product Added !");
+        navigate('/dashboard')
       })
       .catch((error) => {
         console.error("Faild  To Add  ", error);
