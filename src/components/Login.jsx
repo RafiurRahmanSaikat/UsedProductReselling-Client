@@ -1,42 +1,76 @@
 import { Button } from "@material-tailwind/react";
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import loginPic from "../assets/login.gif";
 import { AuthContext } from "../context/AuthProvider";
 const Login = () => {
   const { login, GoogleSignIn } = useContext(AuthContext);
-
+  const location = useLocation();
   const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const SUBMIT = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-   
+    const genarateUserToken = {
+      email,
+    };
     login(email, password)
       .then((result) => {
         const user = result.user;
+    
 
-        console.log(user);
         navigate("/");
         toast.success(" User Log in Successfull!");
       })
+      .then(
+        fetch("https://dream-bike-theta.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(genarateUserToken),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+          
+            localStorage.setItem("accessToken", data.token);
+          })
+      )
       .catch((error) => console.log(error));
 
-    console.log(email, password);
+
   };
   const GoogleLogIn = () => {
     GoogleSignIn()
-    .then((result) => {
-      const user = result.user;
-      console.log(user);
-      navigate("/");
-      toast.success(" User Created  Successfull!");
-  
-    })
-    .catch((error) => console.error(error));  
-  
+      .then((result) => {
+        const user = result.user;
+        const email = user.email;
+        const role = "buyer";
+        const genarateUserToken = {
+          email,
+        };
+
+        fetch("https://dream-bike-theta.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(genarateUserToken),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("accessToken", data.token);
+            navigate(from, { replace: true });
+          })
+          .catch((error) => console.log(error));
+
+        navigate("/");
+        toast.success(" User Created  Successfull!");
+      })
+      .catch((error) => console.error(error));
   };
 
   return (
@@ -48,8 +82,6 @@ const Login = () => {
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <form onSubmit={SUBMIT} className="card-body">
-            
-
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>

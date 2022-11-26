@@ -8,7 +8,6 @@ import { AuthContext } from "../context/AuthProvider";
 const Signup = () => {
   const { setProfile, SignUp, GoogleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
-
   const REGISTER = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -17,7 +16,7 @@ const Signup = () => {
     const password = form.password.value;
     const type = form.type.value;
 
-    console.log(email, name, password);
+
 
     const UpdateUserData = {
       displayName: name,
@@ -26,17 +25,35 @@ const Signup = () => {
       name,
       email,
       role: type,
-      verified:false
+      verified: false,
     };
 
     SignUp(email, password)
       .then((result) => {
         const user = result.user;
-        console.log("User From Firebase", user);
+      
         setProfile(UpdateUserData)
           .then((res) => {
-            console.log("User After Update", res);
-            toast.success(" User Created Successfull!");
+      
+           
+            const email = user.email;
+            const genarateUserToken = {
+              email,
+            };
+
+            fetch("https://dream-bike-theta.vercel.app/jwt", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(genarateUserToken),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                localStorage.setItem("accessToken", data.token);
+                toast.success(" User Created Successfull!");
+                navigate("/");
+              });
           })
           .catch((error) => {
             console.log(error);
@@ -44,7 +61,7 @@ const Signup = () => {
           });
       })
       .then(
-        fetch("http://localhost:5000/adduser", {
+        fetch("https://dream-bike-theta.vercel.app/adduser", {
           method: "post",
           headers: {
             "content-type": "application/json",
@@ -69,12 +86,31 @@ const Signup = () => {
           name: user.displayName,
           email: user.email,
           role: "buyer",
-          verified:false
+          verified: false,
         };
-        console.log(user);
+
+        const email = user.email;
+
+        const genarateUserToken = {
+          email,
+        };
+
+        fetch("https://dream-bike-theta.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(genarateUserToken),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("accessToken", data.token);
+          })
+          .catch((error) => console.log(error));
+
         navigate("/");
         toast.success(" User Created  Successfull!");
-        fetch("http://localhost:5000/adduser", {
+        fetch("https://dream-bike-theta.vercel.app/adduser", {
           method: "post",
           headers: {
             "content-type": "application/json",

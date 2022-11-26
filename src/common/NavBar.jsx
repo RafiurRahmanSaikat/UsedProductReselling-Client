@@ -1,18 +1,23 @@
 import { Button } from "@material-tailwind/react";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LOGO from '../assets/LOGO.ico'
+import LOGO from "../assets/LOGO.ico";
 import { AuthContext } from "../context/AuthProvider";
 
 const Navbar = () => {
   const [state, setState] = useState(false);
   const { user, logOut } = useContext(AuthContext);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const menu = (
     <>
+      {user?.uid && (
+        <button className="btn btn-outline btn-circle w-auto p-2 m-2 btn-primary">
+          {user.displayName}
+        </button>
+      )}
       <li className="">
-        <Link>
+        <Link to='/blogs'>
           <Button size="sm" variant="gradient">
             Blogs
           </Button>
@@ -29,9 +34,15 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="">
-            <Button onClick={()=>{logOut()
-            navigate('/')
-            }} color="red" size="sm" variant="gradient">
+            <Button
+              onClick={() => {
+                logOut();
+                navigate("/");
+              }}
+              color="red"
+              size="sm"
+              variant="gradient"
+            >
               Logout
             </Button>
           </li>
@@ -70,12 +81,7 @@ const Navbar = () => {
             </label>
 
             <Link to="/">
-              <img
-                src={LOGO}
-                width={80}
-                height={50}
-                alt="Float UI logo"
-              />
+              <img src={LOGO} width={80} height={50} alt="Float UI logo" />
             </Link>
             <div className="lg:hidden">
               <button

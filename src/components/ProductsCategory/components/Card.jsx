@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Card = ({ data }) => {
   const { brandPic, brand } = data;
-  // console.log(data, { about, brandPic, brand });
+
   return (
     <>
       <article className="flex flex-col p-4 rounded-3xl outline outline-1 -outline-offset-4">

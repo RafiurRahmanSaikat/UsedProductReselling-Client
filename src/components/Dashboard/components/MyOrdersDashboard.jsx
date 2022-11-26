@@ -1,7 +1,7 @@
 import React from "react";
 
 const MyOrdersDashboard = ({MyOrders}) => {
-  console.log(MyOrders);
+  
   return (
     <>
       <div className="overflow-x-auto w-full">

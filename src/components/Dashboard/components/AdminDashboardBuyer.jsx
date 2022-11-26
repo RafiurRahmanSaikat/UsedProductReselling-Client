@@ -3,13 +3,13 @@ import { toast } from "react-toastify";
 import useAdminData from '../../../Hooks/UseAdminData';
 const AdminDashboardBuyer = () => {
   const DATA=useAdminData("buyer")
-  console.log("Buy",DATA);
+ 
   
   const DELETE=(id)=>{
-    fetch(`http://localhost:5000/deleteuser/?id=${id}`, {
+    fetch(`https://dream-bike-theta.vercel.app/deleteuser/?id=${id}`, {
       method: 'DELETE',
       headers: {
-          // authorization: `Bearer ${localStorage.getItem('genius-token')}`
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`
       }
   })
       .then(res => res.json())

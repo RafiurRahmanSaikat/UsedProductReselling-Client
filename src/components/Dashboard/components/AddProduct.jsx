@@ -13,13 +13,13 @@ const navigate=useNavigate()
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["category", email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/users/?search=${email}`);
+      const res = await fetch(`https://dream-bike-theta.vercel.app/users/?search=${email}`);
 
       const data = await res.json();
       return data;
     },
   });
-// console.log("Ckeck data",data);
+
   const posted = new Date(Date.now()).toString().slice(0, 16);
 
   const SUBMIT = (event) => {
@@ -35,6 +35,7 @@ const navigate=useNavigate()
     const condition = form.condition.value;
     const location = form.location.value;
     const bikePic = form.bikePic.value;
+    const description = form.description.value;
     const used = form.used.value;
 
     const addBike = {
@@ -50,6 +51,7 @@ const navigate=useNavigate()
       orginalPrice,
       sellingPrice,
       location,
+      description,
       booked:false,
       advertise:false,
       sold:false,
@@ -59,8 +61,7 @@ const navigate=useNavigate()
     };
 
 
-
-    fetch("http://localhost:5000/addbike", {
+    fetch("https://dream-bike-theta.vercel.app/addbike", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -68,9 +69,10 @@ const navigate=useNavigate()
       body: JSON.stringify(addBike),
     })
       .then((res) => {
-        console.log(res);
+       
     
         toast.success("Product Added !");
+        form.reset()
         navigate('/dashboard')
       })
       .catch((error) => {
@@ -198,14 +200,26 @@ const navigate=useNavigate()
                       className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-red-600 border-gray-300 text-gray-900"
                     />
                   </div>
-
-                  <div className="col-span-full">
-                    <label htmlFor="bio" className="text-sm">
+                  <div className="col-span-full ">
+                    <label htmlFor="website" className="text-sm">
                       Location
                     </label>
-                    <textarea
-                      placeholder="location"
+                    <input
+                      type="text"
                       name="location"
+                      placeholder="   Your Location "
+                      className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-red-600 border-gray-300 text-gray-900"
+                    />
+                  </div>
+
+                  
+                  <div className="col-span-full">
+                    <label htmlFor="bio" className="text-sm">
+                    Description
+                    </label>
+                    <textarea
+                      placeholder="Bike Description ......................................................... "
+                      name="description"
                       className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-red-600 border-gray-300 text-gray-900"
                     ></textarea>
                   </div>

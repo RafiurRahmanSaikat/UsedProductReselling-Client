@@ -12,7 +12,7 @@ const Dashboard = () => {
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["category", email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/users/?search=${email}`);
+      const res = await fetch(`https://dream-bike-theta.vercel.app/users/?search=${email}`);
       const data = await res.json();
       return data;
     },

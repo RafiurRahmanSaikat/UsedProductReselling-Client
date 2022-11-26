@@ -17,7 +17,11 @@ const [ReLoadData,setReLoadData]=useState(true)
   const MyOrdersData = () =>{
     useEffect(() => {
       axios
-        .get(`http://localhost:5000/myorders/?search=${email}`)
+        .get(`https://dream-bike-theta.vercel.app/myorders/?search=${email}`,{
+          headers: {
+              authorization: `Bearer ${localStorage.getItem('accessToken')}`
+          }
+      })
         .then((res) => {
           setMyOrders(res.data);
         });
@@ -27,7 +31,7 @@ const [ReLoadData,setReLoadData]=useState(true)
   const MyProductData = () =>{
     useEffect(() => {
       axios
-        .get(`http://localhost:5000/myproducts/?search=${email}`)
+        .get(`https://dream-bike-theta.vercel.app/myproducts/?search=${email}`)
         .then((res) => {
           setProductData(res.data);
         });
@@ -38,7 +42,7 @@ const [ReLoadData,setReLoadData]=useState(true)
   const AdminData = (role) =>{
     useEffect(() => {
       axios
-        .get(`http://localhost:5000/admindata/?search=${role}`)
+        .get(`https://dream-bike-theta.vercel.app/admindata/?search=${role}`)
         .then((res) => {
           setProductData(res.data);
         });
@@ -48,7 +52,7 @@ const [ReLoadData,setReLoadData]=useState(true)
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["category", email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/users/?search=${email}`);
+      const res = await fetch(`https://dream-bike-theta.vercel.app/users/?search=${email}`);
       const data = await res.json();
       return data;
     },

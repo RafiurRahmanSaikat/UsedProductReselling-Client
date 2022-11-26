@@ -5,7 +5,7 @@ const BookingModal = ({ data }) => {
   const {user ,loading}=useContext(AuthContext)
   const {_id,used,sellingPrice,sellername,orginalPrice,model,location,condition,brand,email,} = data;
 
-  console.log(data);
+
 
   const SUBMIT = (event) => {
     event.preventDefault();
@@ -22,20 +22,21 @@ const BookingModal = ({ data }) => {
       paid:false
       
    }
-   fetch(`http://localhost:5000/updatestatus/?id=${_id}`, {
+   fetch(`https://dream-bike-theta.vercel.app/updatestatus/?id=${_id}`, {
     method: 'PATCH',
     headers: {
         'content-type': 'application/json',
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`
     },
     body: JSON.stringify({ booked: true })
 }).catch(error=>console.error(error))
 .then(res=>{
-  console.log(res)
-  fetch('http://localhost:5000/bookbike', {
+
+  fetch('https://dream-bike-theta.vercel.app/bookbike', {
     method: 'POST',
     headers: {
         'content-type': 'application/json',
-        // authorization: `Bearer ${localStorage.getItem('genius-token')}`
+        
     },
     body: JSON.stringify(ConfrimBook)
 }).then(res=>toast.success("Bike Booked !"))
@@ -43,7 +44,7 @@ const BookingModal = ({ data }) => {
 })
 
 
-    console.log(ConfrimBook);
+  
 
   };
   return (

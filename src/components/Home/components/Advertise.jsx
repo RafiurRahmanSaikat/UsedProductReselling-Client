@@ -1,153 +1,69 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
-
+import { Link } from "react-router-dom";
+import Loading from "../../../common/Loading";
 const Advertise = () => {
-  return (
-    <section className="py-6 sm:py-12  text-gray-800">
-      <div className="container p-6 mx-auto space-y-8">
-        <div className="space-y-2 text-center">
-          <h2 className="text-3xl font-bold">Trending Items </h2>
-          
-        </div>
-        <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
-          <article className="flex flex-col bg-gray-50">
-            <a
-              rel="noopener noreferrer"
-              href="#"
-              aria-label="Te nulla oportere reprimique his dolorum"
-            >
-              <img
-                alt=""
-                className="object-cover w-full h-52 bg-gray-500"
-                src="https://source.unsplash.com/200x200/?fashion?1"
-              />
-            </a>
-            <div className="flex flex-col flex-1 p-6">
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                aria-label="Te nulla oportere reprimique his dolorum"
-              ></a>
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                className="text-xs tracking-wider uppercase hover:underline text-sky-600"
-              >
-                Convenire
-              </a>
-              <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
-                Te nulla oportere reprimique his dolorum
-              </h3>
-              <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs text-gray-600">
-                <span>June 1, 2020</span>
-                <span>2.1K views</span>
-              </div>
+  const { data, isLoading } = useQuery({
+    queryKey: ["advertise"],
+    queryFn: async () => {
+      const res = await fetch(`https://dream-bike-theta.vercel.app/advertise`);
+      const data = await res.json();
+      return data;
+    },
+  });
+
+
+  const DATA = data?.filter((items) => !items.sold);
+
+  return ( isLoading ? <Loading></Loading>:
+    <>
+      {DATA && DATA.length > 0 && (
+        <section className="py-6 sm:py-12  text-gray-800">
+          <div className="container p-6 mx-auto space-y-8">
+            <div className="space-y-2 text-center">
+              <h2 className="text-3xl font-bold">Trending Items </h2>
             </div>
-          </article>
-          <article className="flex flex-col bg-gray-50">
-            <a
-              rel="noopener noreferrer"
-              href="#"
-              aria-label="Te nulla oportere reprimique his dolorum"
-            >
-              <img
-                alt=""
-                className="object-cover w-full h-52 bg-gray-500"
-                src="https://source.unsplash.com/200x200/?fashion?2"
-              />
-            </a>
-            <div className="flex flex-col flex-1 p-6">
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                aria-label="Te nulla oportere reprimique his dolorum"
-              ></a>
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                className="text-xs tracking-wider uppercase hover:underline text-sky-600"
-              >
-                Convenire
-              </a>
-              <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
-                Te nulla oportere reprimique his dolorum
-              </h3>
-              <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs text-gray-600">
-                <span>June 2, 2020</span>
-                <span>2.2K views</span>
-              </div>
+
+            <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
+              {DATA &&
+                DATA.length > 0 &&
+                DATA.map((bike) => (
+                  <article key={bike._id} className="flex flex-col bg-gray-50">
+                    <Link
+                      to=""
+                      aria-label="Te nulla oportere reprimique his dolorum"
+                    >
+                      <img
+                        alt={bike?.bikePic}
+                        className="object-cover w-full h-52 bg-gray-500"
+                        src={bike?.bikePic}
+                      />
+                    </Link>
+                    <div className="flex flex-col flex-1 p-6">
+                      <Link
+                        to=""
+                        className="text-lg tracking-wider uppercase hover:underline text-sky-600"
+                      >
+                        {bike?.model}
+                      </Link>
+                      <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
+                        Condition : {bike?.condition}{" "}
+                        <p className="text-center text-red-700 ">
+                          Price {bike?.sellingPrice} TK
+                        </p>
+                      </h3>
+                      <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs text-gray-600">
+                        <span>{bike?.posted}</span>
+                        <span>{bike?.brand}</span>
+                      </div>
+                    </div>
+                  </article>
+                ))}
             </div>
-          </article>
-          <article className="flex flex-col bg-gray-50">
-            <a
-              rel="noopener noreferrer"
-              href="#"
-              aria-label="Te nulla oportere reprimique his dolorum"
-            >
-              <img
-                alt=""
-                className="object-cover w-full h-52 bg-gray-500"
-                src="https://source.unsplash.com/200x200/?fashion?3"
-              />
-            </a>
-            <div className="flex flex-col flex-1 p-6">
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                aria-label="Te nulla oportere reprimique his dolorum"
-              ></a>
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                className="text-xs tracking-wider uppercase hover:underline text-sky-600"
-              >
-                Convenire
-              </a>
-              <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
-                Te nulla oportere reprimique his dolorum
-              </h3>
-              <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs text-gray-600">
-                <span>June 3, 2020</span>
-                <span>2.3K views</span>
-              </div>
-            </div>
-          </article>
-          <article className="flex flex-col bg-gray-50">
-            <a
-              rel="noopener noreferrer"
-              href="#"
-              aria-label="Te nulla oportere reprimique his dolorum"
-            >
-              <img
-                alt=""
-                className="object-cover w-full h-52 bg-gray-500"
-                src="https://source.unsplash.com/200x200/?fashion?4"
-              />
-            </a>
-            <div className="flex flex-col flex-1 p-6">
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                aria-label="Te nulla oportere reprimique his dolorum"
-              ></a>
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                className="text-xs tracking-wider uppercase hover:underline text-sky-600"
-              >
-                Convenire
-              </a>
-              <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
-                Te nulla oportere reprimique his dolorum
-              </h3>
-              <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs text-gray-600">
-                <span>June 4, 2020</span>
-                <span>2.4K views</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
+          </div>
+        </section>
+      )}
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ const useAdminData= role=>{
 
     useEffect(() => {
       axios
-        .get(`http://localhost:5000/admindata/?search=${role}`)
+        .get(`https://dream-bike-theta.vercel.app/admindata/?search=${role}`)
         .then((res) => {
             setAdminDATA(res.data);
         })

@@ -13,7 +13,7 @@ const ProductCategories = () => {
   } = useQuery({
     queryKey: ['category'],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/category`);
+      const res = await fetch(`https://dream-bike-theta.vercel.app/category`);
       const data = await res.json();
       return data;
     },

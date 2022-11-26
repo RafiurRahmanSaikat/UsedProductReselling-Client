@@ -5,20 +5,21 @@ import useRepotedData from "../../../Hooks/useRepotedData";
 const AdminDashboardReportedItems = () => {
   const DATA = useRepotedData();
 
-  console.log("Report", DATA);
 
   const DELETE=(id)=>{
-    fetch(`http://localhost:5000/deleteuser/?id=${id}`, {
+    fetch(`https://dream-bike-theta.vercel.app/delete/?id=${id}`, {
       method: 'DELETE',
       headers: {
-          // authorization: `Bearer ${localStorage.getItem('genius-token')}`
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`
       }
   })
       .then(res => res.json())
       .then(data => {       
-            toast.info("Delete Succsessful")
-            console.log(data);
+        toast.info("Delete Succsessful")
+        window.location.reload();
+      
       })
+      
   }
 
   return (

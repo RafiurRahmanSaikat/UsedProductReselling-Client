@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 import { Link, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import verifiedSeller from "../../assets/verified.png";
 import Loading from "../../common/Loading";
 import BookingModal from "../ProductsCategory/components/BookingModal";
@@ -14,11 +15,27 @@ const CategoryPage = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["category", id],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/category/?search=${id}`);
+      const res = await fetch(`https://dream-bike-theta.vercel.app/category/?search=${id}`);
       const data = await res.json();
       return data;
     },
   });
+
+  const REPORT = (id) => {
+    fetch(`https://dream-bike-theta.vercel.app/updatestatus/?id=${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify({ reported: true }),
+    })
+      .then((res) => toast.info("Reported Items"))
+      .catch((error) => {
+        toast.error(error, error.massage);
+        console.error(error);
+      });
+  };
 
   const BikeData = data?.bikes;
   const CategoryData = data?.category;
@@ -98,7 +115,10 @@ const CategoryPage = () => {
 
                   <div className="flex gap-2 flex-wrap m-2 justify-around items-center">
                     <p>Post Time : {data?.posted}</p>
-                    <button className="btn btn-warning btn-sm ">
+                    <button
+                      onClick={() => REPORT(data._id)}
+                      className="btn btn-warning btn-sm "
+                    >
                       Report To Admin
                     </button>
                     <label
