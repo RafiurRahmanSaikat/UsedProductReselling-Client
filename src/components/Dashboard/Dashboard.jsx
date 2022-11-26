@@ -48,10 +48,13 @@ const Dashboard = () => {
             {data?.[0]?.role === "admin" ? (
               <>
                 <li>
-                  <Link to="/dashboard/allseller">All Seller</Link>
+                  <Link to="/dashboard">All Seller</Link>
                 </li>
                 <li>
                   <Link to="/dashboard/allbuyer">All Buyers </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/reported">Reported Items</Link>
                 </li>
               </>
             ) : (

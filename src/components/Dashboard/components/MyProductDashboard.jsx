@@ -12,7 +12,7 @@ const MyProductDashboard = ({ProductData,ReLoadData,setReLoadData}) => {
     headers: {
         'content-type': 'application/json',
     },
-    body: JSON.stringify({ advertise: true })
+    body: JSON.stringify({ advertise: true ,paid :false })
 }).then(res=>toast.success("Advertising Items"))
 .catch(error=>{
   toast.error(error,error.massage)

@@ -1,5 +1,8 @@
 import CategoryPage from "../components/CategoryPage/CategoryPage";
 import AddProduct from "../components/Dashboard/components/AddProduct";
+import AdminDashboardBuyer from "../components/Dashboard/components/AdminDashboardBuyer";
+import AdminDashboardReportedItems from "../components/Dashboard/components/AdminDashboardReportedItems";
+import AdminDashboardSeller from "../components/Dashboard/components/AdminDashboardSeller";
 import MyProductDashboard from "../components/Dashboard/components/MyProductDashboard";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Login from "../components/Login";
@@ -29,8 +32,9 @@ export const router = createBrowserRouter([
         {path: '/dashboard',element: <DashBoardLayout></DashBoardLayout>},
         {path: '/dashboard/addproduct',element: <AddProduct></AddProduct>},
         {path: '/dashboard/myproduct',element: <MyProductDashboard></MyProductDashboard>},
-        {path: '/dashboard/allbuyer',element: <>All Buyers</>},
-        {path: '/dashboard/allseller',element:  <>All Seller</>},
+        {path: '/dashboard/allbuyer',element: <AdminDashboardBuyer></AdminDashboardBuyer>},
+      
+        {path: '/dashboard/reported',element: <AdminDashboardReportedItems></AdminDashboardReportedItems>},
         
     ]
 }

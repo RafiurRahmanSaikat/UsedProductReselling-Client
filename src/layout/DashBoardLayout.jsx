@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import AdminDashboard from "../components/Dashboard/components/AdminDashboard";
+import AdminDashboardSeller from "../components/Dashboard/components/AdminDashboardSeller";
 import MyOrdersDashboard from "../components/Dashboard/components/MyOrdersDashboard";
 import MyProductDashboard from "../components/Dashboard/components/MyProductDashboard";
 
@@ -11,15 +11,15 @@ const DashBoardLayout = () => {
   const { user, loading } = useContext(AuthContext);
   const email = user?.email;
 const [ReLoadData,setReLoadData]=useState(true)
-  const [Orders, setOrders] = React.useState(null);
+  const [MyOrders, setMyOrders] = React.useState(null);
   const [ProductData, setProductData] = React.useState(null);
 
-  const OrdersData = () =>{
+  const MyOrdersData = () =>{
     useEffect(() => {
       axios
-        .get(`http://localhost:5000/myproducts/?search=${email}`)
+        .get(`http://localhost:5000/myorders/?search=${email}`)
         .then((res) => {
-          setOrders(res.data);
+          setMyOrders(res.data);
         });
     }, []);
   }
@@ -34,8 +34,16 @@ const [ReLoadData,setReLoadData]=useState(true)
     }, [email,ReLoadData]);
   }
 
-// console.log("Order",Orders,"ProductData",ProductData);
- 
+
+  const AdminData = (role) =>{
+    useEffect(() => {
+      axios
+        .get(`http://localhost:5000/admindata/?search=${role}`)
+        .then((res) => {
+          setProductData(res.data);
+        });
+    }, [ReLoadData]);
+  }
 
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["category", email],
@@ -51,11 +59,11 @@ const [ReLoadData,setReLoadData]=useState(true)
     return (<MyProductDashboard  MyProductData={MyProductData()} ReLoadData={ReLoadData} setReLoadData={setReLoadData} ProductData={ProductData}></MyProductDashboard>);
   }
   if (data?.[0]?.role === "buyer") {
-    OrdersData()
-    return <MyOrdersDashboard></MyOrdersDashboard>;
+   
+    return (<MyOrdersDashboard MyOrdersData={MyOrdersData()}  ReLoadData={ReLoadData} setReLoadData={setReLoadData} MyOrders={MyOrders}></MyOrdersDashboard>);
   } else {
    
-    return <AdminDashboard></AdminDashboard>;
+    return <AdminDashboardSeller AdminData={AdminData()}></AdminDashboardSeller>;
   }
 };
 

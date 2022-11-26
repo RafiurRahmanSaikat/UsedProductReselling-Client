@@ -1,6 +1,7 @@
 import { Button } from "@material-tailwind/react";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import LOGO from '../assets/LOGO.ico'
 import { AuthContext } from "../context/AuthProvider";
 
 const Navbar = () => {
@@ -70,8 +71,8 @@ const Navbar = () => {
 
             <Link to="/">
               <img
-                src="https://www.floatui.com/logo.svg"
-                width={120}
+                src={LOGO}
+                width={80}
                 height={50}
                 alt="Float UI logo"
               />

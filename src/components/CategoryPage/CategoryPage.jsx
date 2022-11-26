@@ -4,13 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 import { Link, useParams } from "react-router-dom";
+import verifiedSeller from "../../assets/verified.png";
+import Loading from "../../common/Loading";
 import BookingModal from "../ProductsCategory/components/BookingModal";
-import verifiedSeller from '../../assets/verified.png'
 
 const CategoryPage = () => {
   const { id } = useParams();
-const [selectedBike,setSelectedBike]=useState("nai")
-  const { data ,isLoading} = useQuery({
+  const [selectedBike, setSelectedBike] = useState("nai");
+  const { data, isLoading } = useQuery({
     queryKey: ["category", id],
     queryFn: async () => {
       const res = await fetch(`http://localhost:5000/category/?search=${id}`);
@@ -19,15 +20,12 @@ const [selectedBike,setSelectedBike]=useState("nai")
     },
   });
 
-  // const {bikes,category}={data}
   const BikeData = data?.bikes;
   const CategoryData = data?.category;
-  // console.log("Bike DATA MONGODB", BikeData);
-  // {BikeData &&
-  //   BikeData.map(i=>console.log(i.bikePic))
-  // }
 
-  return (
+  return isLoading ? (
+    <Loading></Loading>
+  ) : (
     <>
       <section className="w-[95vw] mx-auto space-x-8 grid grid-cols-4">
         {/* Selected Cat Info Start */}
@@ -62,12 +60,18 @@ const [selectedBike,setSelectedBike]=useState("nai")
                   key={data._id}
                   className="flex flex-col p-4 rounded-3xl outline outline-1 -outline-offset-4"
                 >
-                  <div className="flex justify-between">
-                    <p >Seller name : {data?.sellername} </p>
-                  
-                   { data?.sellerVerified && <><img className="w-16" src={verifiedSeller} alt="" /></>
-                   }
+                  <div className="flex m-4 justify-between">
+                    <p>
+                      <span className="font-bold ">Seller name</span> :{" "}
+                      {data?.sellername}{" "}
+                    </p>
 
+                    {data?.sellerVerified && (
+                      <>
+                        <span className=" font-bold">Verified Seller</span>{" "}
+                        <img className="w-8" src={verifiedSeller} alt="" />
+                      </>
+                    )}
                   </div>
                   <img
                     alt=""
@@ -75,32 +79,40 @@ const [selectedBike,setSelectedBike]=useState("nai")
                     src={data?.bikePic}
                   />
                   <p className=" py-2 text-lg font-semibold ">{data?.model}</p>
+                  <p className="  font-semibold">Location : {data?.location}</p>
 
-                  <p className="">Orginal Price : {data?.orginalPrice} </p>
+                  <p className="  font-semibold">
+                    Condition : {data?.condition}
+                  </p>
+
+                  <p className="">
+                    <span className="font-bold ">Orginal Price :</span>{" "}
+                    {data?.orginalPrice}{" "}
+                  </p>
                   <p className="text-red-600 font font-semibold">
                     Selling Price :{data?.sellingPrice}
                   </p>
-                  <p className="text-lg font-semibold">
-                    Location : {data?.location}
-                  </p>
-                  <p className="">Seller name : {data?.sellername} </p>
-                  <p className="text-lg font-semibold">
-                    Condition : {data?.condition}{" "}
-                  </p>
 
-                  <p >Used About {data?.used} Year    </p>
-                  <p >Purched Time : {data?.used} Year Ago </p>
+                  <p>Used About {data?.used} Year </p>
+                  <p>Purched Time : {data?.used} Year Ago </p>
 
-                  <div className="flex justify-around items-center">
-                    <p >Post Time :  {data?.posted}</p>
-                    
-                    <label onClick={()=>setSelectedBike(data)} htmlFor="my-modal-3" className="btn btn-primary  ">Book Now</label>
+                  <div className="flex gap-2 flex-wrap m-2 justify-around items-center">
+                    <p>Post Time : {data?.posted}</p>
+                    <button className="btn btn-warning btn-sm ">
+                      Report To Admin
+                    </button>
+                    <label
+                      onClick={() => setSelectedBike(data)}
+                      htmlFor="my-modal-3"
+                      className="btn btn-primary btn-sm  "
+                    >
+                      Book Now
+                    </label>
                   </div>
                 </article>
               ))}
 
-          <BookingModal data={selectedBike}></BookingModal>
-
+            <BookingModal data={selectedBike}></BookingModal>
           </div>
         </section>
       </section>

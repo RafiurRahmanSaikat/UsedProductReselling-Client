@@ -19,7 +19,7 @@ const navigate=useNavigate()
       return data;
     },
   });
-console.log("Ckeck data",data);
+// console.log("Ckeck data",data);
   const posted = new Date(Date.now()).toString().slice(0, 16);
 
   const SUBMIT = (event) => {
@@ -54,6 +54,7 @@ console.log("Ckeck data",data);
       advertise:false,
       sold:false,
       paid:false,
+      reported:false,
       
     };
 
