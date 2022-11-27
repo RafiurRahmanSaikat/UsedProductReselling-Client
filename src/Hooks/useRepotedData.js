@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+
 const useRepotedData = () => {
   const [ReportedDATA, setReportedDATA] = useState(null);
  
@@ -9,6 +10,7 @@ const useRepotedData = () => {
       setReportedDATA(res.data);
     });
   }, ["bikes"]);
+
   return ReportedDATA;
 };
 

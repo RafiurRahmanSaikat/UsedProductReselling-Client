@@ -1,7 +1,7 @@
 import { Button } from "@material-tailwind/react";
 
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -12,6 +12,7 @@ import BookingModal from "../ProductsCategory/components/BookingModal";
 const CategoryPage = () => {
   const { id } = useParams();
   const [selectedBike, setSelectedBike] = useState("nai");
+
   const { data, isLoading } = useQuery({
     queryKey: ["category", id],
     queryFn: async () => {
@@ -38,7 +39,6 @@ const CategoryPage = () => {
         console.error(error);
       });
   };
-
   const BikeData = data?.bikes;
   const CategoryData = data?.category;
   const DATA = BikeData?.filter((bike) => !bike?.sold);
@@ -87,7 +87,7 @@ const CategoryPage = () => {
                       <span className="font-bold ">Seller name</span> :{" "}
                       {data?.sellername}{" "}
                     </p>
-
+                    {/* ...................................................................................................check seller */}
                     {data?.sellerVerified && (
                       <>
                         <span className=" font-bold">Verified Seller</span>{" "}

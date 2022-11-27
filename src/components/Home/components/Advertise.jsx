@@ -30,7 +30,7 @@ const Advertise = () => {
                 DATA.map((bike) => (
                   <article key={bike._id} className="flex flex-col bg-gray-50">
                     <Link
-                      to=""
+                     to={`/category/${bike?.brand}`}
                       aria-label="Te nulla oportere reprimique his dolorum"
                     >
                       <img
@@ -40,12 +40,12 @@ const Advertise = () => {
                       />
                     </Link>
                     <div className="flex flex-col flex-1 p-6">
-                      <Link
-                        to=""
+                      <p
+                       
                         className="text-lg tracking-wider uppercase hover:underline text-sky-600"
                       >
                         {bike?.model}
-                      </Link>
+                      </p>
                       <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
                         Condition : {bike?.condition}{" "}
                         <p className="text-center text-red-700 ">

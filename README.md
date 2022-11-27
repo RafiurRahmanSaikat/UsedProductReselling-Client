@@ -11,6 +11,10 @@
 - [Github Server Repo ](https://github.com/programming-hero-web-course-4/b612-used-products-resale-server-side-RafiurRahmanSaikat)
 - [Github Client Repo ](https://github.com/programming-hero-web-course-4/b612-used-products-resale-clients-side-RafiurRahmanSaikat)
 
+adminEmail: admin@gmail.com
+
+adminPassword: admin@gmail.com
+
 ## Features
 
 - Light/dark mode toggle

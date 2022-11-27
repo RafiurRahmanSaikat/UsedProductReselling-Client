@@ -2,50 +2,54 @@ import React, { useContext } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../context/AuthProvider";
 const BookingModal = ({ data }) => {
-  const {user ,loading}=useContext(AuthContext)
-  const {_id,used,sellingPrice,sellername,orginalPrice,model,location,condition,brand,email,} = data;
-
-
+  const { user, loading } = useContext(AuthContext);
+  const {
+    _id,
+    used,
+    sellingPrice,
+    sellername,
+    orginalPrice,
+    model,
+    location,
+    condition,
+    brand,
+    email,
+  } = data;
 
   const SUBMIT = (event) => {
     event.preventDefault();
     const form = event.target;
-  const phone=form.phone.value
+    const phone = form.phone.value;
 
-   const ConfrimBook={
-      customerName:user?.displayName,
-      customerEmail:user?.email,
-      customerPhone:phone,
-      bikeID:_id,
+    const ConfrimBook = {
+      customerName: user?.displayName,
+      customerEmail: user?.email,
+      customerPhone: phone,
+      bikeID: _id,
       data,
-      sellingPrice   ,
-      paid:false
-      
-   }
-   fetch(`https://dream-bike-theta.vercel.app/updatestatus/?id=${_id}`, {
-    method: 'PATCH',
-    headers: {
-        'content-type': 'application/json',
-        authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    },
-    body: JSON.stringify({ booked: true })
-}).catch(error=>console.error(error))
-.then(res=>{
-
-  fetch('https://dream-bike-theta.vercel.app/bookbike', {
-    method: 'POST',
-    headers: {
-        'content-type': 'application/json',
-        
-    },
-    body: JSON.stringify(ConfrimBook)
-}).then(res=>toast.success("Bike Booked !"))
-
-})
-
-
-  
-
+      sellingPrice,
+      paid: false,
+    
+    };
+    fetch(`https://dream-bike-theta.vercel.app/updatestatus/?id=${_id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify({ booked: true }),
+    })
+      .catch((error) => console.error(error))
+      .then((res) => {
+        fetch("https://dream-bike-theta.vercel.app/bookbike", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(ConfrimBook),
+        }).then((res) => toast.success("Bike Booked !"));
+      })
+      form.reset()
   };
   return (
     <div>
@@ -120,7 +124,6 @@ const BookingModal = ({ data }) => {
             </p>
 
             <p className="flex justify-between font-semibold">
-        
               Your Mobile Number
               <input
                 name="phone"

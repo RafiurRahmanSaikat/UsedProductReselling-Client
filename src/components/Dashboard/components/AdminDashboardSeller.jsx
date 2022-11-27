@@ -5,14 +5,17 @@ const AdminDashboardSeller = () => {
   const DATA = useAdminData("seller");
 
   const VERIFY = (id, email = null) => {
-    fetch(`https://dream-bike-theta.vercel.app/updateuserstatus/?id=${id}&email=${email}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify({ verified: true }),
-    })
+    fetch(
+      `https://dream-bike-theta.vercel.app/updateuserstatus/?id=${id}&email=${email}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify({ verified: true }),
+      }
+    )
       .then((res) => {
         toast.success("Seller Verified ");
       })
@@ -36,43 +39,47 @@ const AdminDashboardSeller = () => {
   };
 
   return (
-    <>
-      <div className="overflow-x-auto w-full">
-        <table className="table w-full text-center">
-          <thead>
-            <tr>
-              <th>Seller Name</th>
-              <th>Email</th>
-              <th>Action</th>
-            </tr>
-          </thead>
+    <section>
+      {DATA?.length === 0 ? (
+        <p className="text-5xl text-red-700">No Data Found </p>
+      ) : (
+        <div className="overflow-x-auto w-full">
+          <table className="table w-full text-center">
+            <thead>
+              <tr>
+                <th>Seller Name</th>
+                <th>Email</th>
+                <th>Action</th>
+              </tr>
+            </thead>
 
-          <tbody>
-            {DATA &&
-              DATA?.map((item) => (
-                <tr key={item?._id}>
-                  <td>{item?.name}</td>
-                  <td>{item?.email}</td>
-                  <td>
-                    <button
-                      onClick={() => DELETE(item?._id)}
-                      className="btn m-4 btn-error text-white btn-xs"
-                    >
-                      Delete
-                    </button>
-                    <button
-                      onClick={() => VERIFY(item?._id, item?.email)}
-                      className="btn btn-info text-white btn-xs"
-                    >
-                      Verify
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
-    </>
+            <tbody>
+              {DATA &&
+                DATA?.map((item) => (
+                  <tr key={item?._id}>
+                    <td>{item?.name}</td>
+                    <td>{item?.email}</td>
+                    <td>
+                      <button
+                        onClick={() => DELETE(item?._id)}
+                        className="btn m-4 btn-error text-white btn-xs"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        onClick={() => VERIFY(item?._id, item?.email)}
+                        className="btn btn-info text-white btn-xs"
+                      >
+                        Verify
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
   );
 };
 

@@ -10,6 +10,7 @@ const AddProduct = () => {
   const { user, loading } = useContext(AuthContext);
   const email = user?.email;
 const navigate=useNavigate()
+
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["category", email],
     queryFn: async () => {
@@ -36,6 +37,7 @@ const navigate=useNavigate()
     const location = form.location.value;
     const bikePic = form.bikePic.value;
     const description = form.description.value;
+    const phone = form.phone.value;
     const used = form.used.value;
 
     const addBike = {
@@ -52,6 +54,7 @@ const navigate=useNavigate()
       sellingPrice,
       location,
       description,
+      phone,
       booked:false,
       advertise:false,
       sold:false,
@@ -197,6 +200,17 @@ const navigate=useNavigate()
                       type="text"
                       name="bikePic"
                       placeholder="    Upload A Image (PhotoURL)"
+                      className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-red-600 border-gray-300 text-gray-900"
+                    />
+                  </div>
+                  <div className="col-span-full ">
+                    <label htmlFor="website" className="text-sm">
+                      Your Phone Number
+                    </label>
+                    <input
+                      type="text"
+                      name="phone"
+                      placeholder="    Your Phone Number "
                       className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-red-600 border-gray-300 text-gray-900"
                     />
                   </div>

@@ -8,6 +8,7 @@ const Login = () => {
   const { login, GoogleSignIn } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+
   const from = location.state?.from?.pathname || "/";
   const SUBMIT = (event) => {
     event.preventDefault();
@@ -20,8 +21,6 @@ const Login = () => {
     login(email, password)
       .then((result) => {
         const user = result.user;
-    
-
         navigate("/");
         toast.success(" User Log in Successfull!");
       })
@@ -35,13 +34,13 @@ const Login = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-          
             localStorage.setItem("accessToken", data.token);
           })
       )
-      .catch((error) => console.log(error));
-
-
+      .catch((error) => {
+        toast.error(error.code);
+      });
+    form.reset();
   };
   const GoogleLogIn = () => {
     GoogleSignIn()
@@ -65,12 +64,18 @@ const Login = () => {
             localStorage.setItem("accessToken", data.token);
             navigate(from, { replace: true });
           })
-          .catch((error) => console.log(error));
+          .catch((error) => {
+            toast.error(error.code);
+            console.log(error);
+          });
 
         navigate("/");
         toast.success(" User Created  Successfull!");
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        toast.error(error.code);
+        console.error(error);
+      });
   };
 
   return (
@@ -78,6 +83,7 @@ const Login = () => {
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl p-4 font-bold">Login now!</h1>
+
           <img src={loginPic} alt="" />
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">

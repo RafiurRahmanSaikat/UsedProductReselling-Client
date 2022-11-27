@@ -12,6 +12,34 @@ const CheckOutForm = ({ data }) => {
 
   const [clientSecret, setClientSecret] = useState("");
 
+  const paymentData = {
+    productInfo: data,
+    productID: bikeID,
+    amount: price,
+  };
+
+  const PaymentDB = async (TRXID) => {
+    fetch("https://dream-bike-theta.vercel.app/payments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify({
+        productInfo: data,
+        productID: bikeID,
+        amount: price,
+        TranjectionID: TRXID,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Paymet added in db", data);
+      });
+  };
+
+  
+
   useEffect(() => {
     fetch("https://dream-bike-theta.vercel.app/create-payment-intent", {
       method: "POST",
@@ -33,7 +61,10 @@ const CheckOutForm = ({ data }) => {
       },
       body: JSON.stringify({ paid: true }),
     })
-      .then((res) => toast.success("Paymeny  Done "))
+      .then((res) => {
+        console.log(res);
+        toast.success("Paymeny  Done ");
+      })
       .catch((error) => {
         toast.error(error, error.massage);
         console.error(error);
@@ -79,7 +110,6 @@ const CheckOutForm = ({ data }) => {
     }
     if (paymentIntent.status === "succeeded") {
       // ........................Update Info................ Start
-
       fetch(`https://dream-bike-theta.vercel.app/updatestatus/?id=${bikeID}`, {
         method: "PATCH",
         headers: {
@@ -88,28 +118,23 @@ const CheckOutForm = ({ data }) => {
         },
         body: JSON.stringify({ advertise: false, sold: true, paid: true }),
       })
-        .then((res) => {
+        .then(() => {
           UpdateDB(_id);
         })
+
         .catch((error) => {
           toast.error(error, error.massage);
           console.error(error);
         });
+      PaymentDB(paymentIntent.id);
 
-      // ........................Update Info................ End
+      console.log("paymentDONE TRXID", paymentIntent.id);
 
-      // ........................Update Booked DB Info................ Start
-
-      // ........................Update Booked DB Info................ End
-
-      console.log("paymentIntent", paymentIntent);
       setSuccessOrErrorInfo(
-        `${paymentIntent.status}  TranjectionID= ${paymentIntent.id}`
+        `${paymentIntent.status}  TranjectionID = ${paymentIntent.id}`
       );
     }
   };
-
-  console.log("Hlw from Checkout", data);
 
   return (
     <section className="flex-col flex  flex-wrap m-8 mx-auto justify-center items-center ">

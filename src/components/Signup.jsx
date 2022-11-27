@@ -8,6 +8,7 @@ import { AuthContext } from "../context/AuthProvider";
 const Signup = () => {
   const { setProfile, SignUp, GoogleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
+
   const REGISTER = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -15,8 +16,6 @@ const Signup = () => {
     const email = form.email.value;
     const password = form.password.value;
     const type = form.type.value;
-
-
 
     const UpdateUserData = {
       displayName: name,
@@ -31,16 +30,12 @@ const Signup = () => {
     SignUp(email, password)
       .then((result) => {
         const user = result.user;
-      
         setProfile(UpdateUserData)
           .then((res) => {
-      
-           
             const email = user.email;
             const genarateUserToken = {
               email,
             };
-
             fetch("https://dream-bike-theta.vercel.app/jwt", {
               method: "POST",
               headers: {
@@ -56,9 +51,15 @@ const Signup = () => {
               });
           })
           .catch((error) => {
-            console.log(error);
-            toast.error("Failed to Update User!");
-          });
+            toast.error(error.code);
+            console.log("Sign up", error);
+            return
+          })
+      })
+      .catch((error) => {
+        console.log(error.code);
+        toast.error(error.code);
+        return
       })
       .then(
         fetch("https://dream-bike-theta.vercel.app/adduser", {
@@ -69,13 +70,13 @@ const Signup = () => {
           body: JSON.stringify(DBuser),
         })
           .catch((error) => {
-            console.error(error);
+            toast.error(error.code);
           })
           .catch((error) => {
-            console.log(error);
-            toast.error("Failed to Create User!");
+            toast.error(error.code);
           })
       );
+      form.reset()
   };
 
   const GoogleLogIn = () => {
@@ -106,7 +107,10 @@ const Signup = () => {
           .then((data) => {
             localStorage.setItem("accessToken", data.token);
           })
-          .catch((error) => console.log(error));
+          .catch((error) => {
+            toast.error(error.code);
+            console.log(error);
+          });
 
         navigate("/");
         toast.success(" User Created  Successfull!");
@@ -116,9 +120,14 @@ const Signup = () => {
             "content-type": "application/json",
           },
           body: JSON.stringify(DbUser),
-        }).catch((error) => console.error(error));
+        }).catch((error) => {
+          console.error(error);
+          toast.error(error.code);
+        });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        toast.error(error.code);
+      });
   };
 
   return (
@@ -126,6 +135,7 @@ const Signup = () => {
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl p-4 font-bold">Please Register !</h1>
+
           <img src={SignupPic} alt="" />
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
