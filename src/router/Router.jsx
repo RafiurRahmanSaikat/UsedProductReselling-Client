@@ -1,14 +1,15 @@
+import Blog from "../common/Blog";
+import Error404 from "../common/Error404";
 import CategoryPage from "../components/CategoryPage/CategoryPage";
 import AddProduct from "../components/Dashboard/components/AddProduct";
 import AdminDashboardBuyer from "../components/Dashboard/components/AdminDashboardBuyer";
 import AdminDashboardReportedItems from "../components/Dashboard/components/AdminDashboardReportedItems";
 import MyProductDashboard from "../components/Dashboard/components/MyProductDashboard";
 import Dashboard from "../components/Dashboard/Dashboard";
-import Error404 from "../common/Error404";
 import Login from "../components/Login";
+import Payment from "../components/Payment/Payment";
 import Signup from "../components/Signup";
 import DashBoardLayout from "../layout/DashBoardLayout";
-import Blog from "../common/Blog";
 import PrivateRoute from "./PrivateRouter";
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -37,8 +38,8 @@ export const router = createBrowserRouter([
         {path: '/dashboard/addproduct',element: <AddProduct></AddProduct>},
         {path: '/dashboard/myproduct',element: <MyProductDashboard></MyProductDashboard>},
         {path: '/dashboard/allbuyer',element: <AdminDashboardBuyer></AdminDashboardBuyer>},
-      
         {path: '/dashboard/reported',element: <AdminDashboardReportedItems></AdminDashboardReportedItems>},
+        {path: '/dashboard/payment/:id',element: <Payment></Payment>},
         
     ]
 }
