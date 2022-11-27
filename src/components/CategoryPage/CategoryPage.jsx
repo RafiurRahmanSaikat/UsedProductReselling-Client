@@ -15,7 +15,9 @@ const CategoryPage = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["category", id],
     queryFn: async () => {
-      const res = await fetch(`https://dream-bike-theta.vercel.app/category/?search=${id}`);
+      const res = await fetch(
+        `https://dream-bike-theta.vercel.app/category/?search=${id}`
+      );
       const data = await res.json();
       return data;
     },
@@ -39,6 +41,7 @@ const CategoryPage = () => {
 
   const BikeData = data?.bikes;
   const CategoryData = data?.category;
+  const DATA = BikeData?.filter((bike) => !bike?.sold);
 
   return isLoading ? (
     <Loading></Loading>
@@ -48,9 +51,7 @@ const CategoryPage = () => {
         {/* Selected Cat Info Start */}
         <section className="bg-gray-200 rounded-3xl h-[100vh] hidden md:block text-gray-800">
           <p className="text-2xl m-8 font-bold">{CategoryData?.[0].brand}</p>
-          <p className="text-2xl font-bold">
-            Total Bikes Found {BikeData?.length}
-          </p>
+          <p className="text-2xl font-bold">Total Bikes Found {DATA?.length}</p>
           <div className="flex flex-col max-w-md p-6  text-gray-900">
             <img
               src={CategoryData?.[0].brandPic}
@@ -71,8 +72,12 @@ const CategoryPage = () => {
 
         <section className="col-span-3 w-full">
           <div className="mx-auto justify-center gap-8 items-center  grid  grid-cols-1 md:p-8 lg:grid-cols-2 md:grid-cols-1">
-            {BikeData &&
-              BikeData?.map((data) => (
+            {DATA && DATA.length === 0 ? (
+              <p className="text-5xl text-center ">
+                Opps Sorry !! <br /> <br /> NO BIKES FOUND FOR SALE
+              </p>
+            ) : (
+              DATA?.map((data) => (
                 <article
                   key={data._id}
                   className="flex flex-col p-4 rounded-3xl outline outline-1 -outline-offset-4"
@@ -130,7 +135,8 @@ const CategoryPage = () => {
                     </label>
                   </div>
                 </article>
-              ))}
+              ))
+            )}
 
             <BookingModal data={selectedBike}></BookingModal>
           </div>

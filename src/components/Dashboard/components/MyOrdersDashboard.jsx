@@ -39,9 +39,22 @@ const MyOrdersDashboard = ({ MyOrders }) => {
                     </span>
                   </td>
                   {order.paid ? <td>Paid</td> : <td>UnPaid</td>}
-                  <th className="space-x-3">
-                    <Link to={`/dashboard/payment/${order._id}`} ><button  className="btn btn-warning btn-xs">Pay Now</button></Link>
-                  </th>
+
+                  {order.paid ? (
+                    <td>
+                      <button className="btn disabled: btn-success btn-xs">
+                        Payment Done
+                      </button>
+                    </td>
+                  ) : (
+                    <th className="space-x-3">
+                      <Link to={`/dashboard/payment/${order._id}`}>
+                        <button className="btn btn-warning btn-xs">
+                          Pay Now
+                        </button>
+                      </Link>
+                    </th>
+                  )}
                 </tr>
               ))}
           </tbody>
