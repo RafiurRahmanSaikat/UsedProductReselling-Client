@@ -1,5 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
+import Loading from "../../../common/Loading";
 import useAdminData from "../../../Hooks/UseAdminData";
 const AdminDashboardSeller = () => {
   const DATA = useAdminData("seller");
@@ -39,8 +40,10 @@ const AdminDashboardSeller = () => {
   };
 
   return (
-    <section>
-      {DATA?.length === 0 ? (
+  <> 
+   <section>
+    {
+      DATA?<>{DATA?.length === 0 ? (
         <p className="text-5xl text-red-700">No Data Found </p>
       ) : (
         <div className="overflow-x-auto w-full">
@@ -78,8 +81,17 @@ const AdminDashboardSeller = () => {
             </tbody>
           </table>
         </div>
-      )}
+      )}</>: <Loading></Loading>
+    }
+
+      
+
+
+      
     </section>
+  </>
+
+   
   );
 };
 
