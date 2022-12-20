@@ -1,5 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
+import Loading from "../../../common/Loading";
 import useAdminData from "../../../Hooks/UseAdminData";
 const AdminDashboardBuyer = () => {
   const DATA = useAdminData("buyer");
@@ -13,12 +14,17 @@ const AdminDashboardBuyer = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        window.location.reload();
         toast.info("Delete Succsessful");
+        
       });
   };
 
   return (
     <section>
+
+     { DATA ? 
+      <>
       {DATA?.length === 0 ? (
         <p className="text-5xl text-red-700">No Data Found </p>
       ) : (
@@ -52,6 +58,8 @@ const AdminDashboardBuyer = () => {
           </table>
         </div>
       )}
+      </>
+      :<Loading></Loading>}
     </section>
   );
 };

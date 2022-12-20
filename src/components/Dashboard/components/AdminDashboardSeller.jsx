@@ -40,58 +40,55 @@ const AdminDashboardSeller = () => {
   };
 
   return (
-  <> 
-   <section>
-    {
-      DATA?<>{DATA?.length === 0 ? (
-        <p className="text-5xl text-red-700">No Data Found </p>
-      ) : (
-        <div className="overflow-x-auto w-full">
-          <table className="table w-full text-center">
-            <thead>
-              <tr>
-                <th>Seller Name</th>
-                <th>Email</th>
-                <th>Action</th>
-              </tr>
-            </thead>
+    <>
+      <section>
+        {DATA ? (
+          <>
+            {DATA?.length === 0 ? (
+              <p className="text-5xl text-red-700">No Data Found </p>
+            ) : (
+              <div className="overflow-x-auto w-full">
+                <table className="table w-full text-center">
+                  <thead>
+                    <tr>
+                      <th>Seller Name</th>
+                      <th>Email</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
 
-            <tbody>
-              {DATA &&
-                DATA?.map((item) => (
-                  <tr key={item?._id}>
-                    <td>{item?.name}</td>
-                    <td>{item?.email}</td>
-                    <td>
-                      <button
-                        onClick={() => DELETE(item?._id)}
-                        className="btn m-4 btn-error text-white btn-xs"
-                      >
-                        Delete
-                      </button>
-                      <button
-                        onClick={() => VERIFY(item?._id, item?.email)}
-                        className="btn btn-info text-white btn-xs"
-                      >
-                        Verify
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-      )}</>: <Loading></Loading>
-    }
-
-      
-
-
-      
-    </section>
-  </>
-
-   
+                  <tbody>
+                    {DATA &&
+                      DATA?.map((item) => (
+                        <tr key={item?._id}>
+                          <td>{item?.name}</td>
+                          <td>{item?.email}</td>
+                          <td>
+                            <button
+                              onClick={() => DELETE(item?._id)}
+                              className="btn m-4 btn-error text-white btn-xs"
+                            >
+                              Delete
+                            </button>
+                            <button
+                              onClick={() => VERIFY(item?._id, item?.email)}
+                              className="btn btn-info text-white btn-xs"
+                            >
+                              Verify
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </>
+        ) : (
+          <Loading></Loading>
+        )}
+      </section>
+    </>
   );
 };
 

@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Loading from "../../../common/Loading";
 
 const MyOrdersDashboard = ({ MyOrders }) => {
   return (
     <section>
-      {MyOrders?.length === 0 ? (
+
+    {MyOrders ?
+      <>
+    {MyOrders?.length === 0 ? (
         <p className="text-5xl text-red-700">No Data Found </p>
       ) : (
         <div className="overflow-x-auto w-full">
@@ -63,7 +67,11 @@ const MyOrdersDashboard = ({ MyOrders }) => {
             </tbody>
           </table>
         </div>
-      )}
+      )} 
+    </>
+  :
+  <Loading></Loading>  
+  }
     </section>
   );
 };

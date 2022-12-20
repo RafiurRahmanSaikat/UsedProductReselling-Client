@@ -12,10 +12,11 @@ const Advertise = () => {
     },
   });
 
-
   const DATA = data?.filter((items) => !items.sold);
 
-  return ( isLoading ? <Loading></Loading>:
+  return isLoading ? (
+    <Loading></Loading>
+  ) : (
     <>
       {DATA && DATA.length > 0 && (
         <section className="py-6 sm:py-12  text-gray-800">
@@ -24,13 +25,14 @@ const Advertise = () => {
               <h2 className="text-3xl font-bold">Trending Items </h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1  gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
               {DATA &&
                 DATA.length > 0 &&
                 DATA.map((bike) => (
-                  <article key={bike._id} className="flex flex-col bg-gray-50">
+                  
+                  <article key={bike._id} className="flex  flex-col  bg-gray-50">
                     <Link
-                     to={`/category/${bike?.brand}`}
+                      to={`/category/${bike?.brand}`}
                       aria-label="Te nulla oportere reprimique his dolorum"
                     >
                       <img
@@ -40,10 +42,7 @@ const Advertise = () => {
                       />
                     </Link>
                     <div className="flex flex-col flex-1 p-6">
-                      <p
-                       
-                        className="text-lg tracking-wider uppercase hover:underline text-sky-600"
-                      >
+                      <p className="text-lg tracking-wider uppercase hover:underline text-sky-600">
                         {bike?.model}
                       </p>
                       <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
@@ -58,6 +57,7 @@ const Advertise = () => {
                       </div>
                     </div>
                   </article>
+
                 ))}
             </div>
           </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
+import Loading from "../../../common/Loading";
 import useRepotedData from "../../../Hooks/useRepotedData";
 
 const AdminDashboardReportedItems = () => {
@@ -14,14 +15,15 @@ const AdminDashboardReportedItems = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.info("Delete Succsessful");
         window.location.reload();
+        toast.info("Delete Succsessful");
       });
   };
 
   return (
     <section>
-      {DATA?.length === 0 ? (
+{DATA ? <>
+    {DATA?.length === 0 ? (
         <p className="text-5xl text-red-700">No Data Found </p>
       ) : (
         <div className="overflow-x-auto w-full">
@@ -72,6 +74,10 @@ const AdminDashboardReportedItems = () => {
           </table>
         </div>
       )}
+      
+    </> :<Loading></Loading>}
+   
+
     </section>
   );
 };
