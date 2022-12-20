@@ -2,9 +2,9 @@ import React from "react";
 
 const Newsletter = () => {
   return (
-    <section className="items-center mt-12 max-w-screen-xl  mx-auto px-4 gap-4 md:flex xl:px-8 xl:gap-12">
+    <section className="items-center mt-12 max-w-screen-xl bg-white  mx-auto px-4 gap-4 md:flex xl:px-8 xl:gap-12">
       <div className="flex-1 space-y-4">
-        <h1 className="text-2xl text-gray-800 font-semibold lg:text-3xl">
+        <h1 className="text-2xl  text-gray-800 font-semibold lg:text-3xl">
         Get Notification About US
         </h1>
         <p className="text-gray-800 text-base leading-relaxed">

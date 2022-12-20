@@ -17,7 +17,7 @@ const Navbar = () => {
         </button>
       )}
       <li className="">
-        <Link to='/blogs'>
+        <Link to="/blogs">
           <Button size="sm" variant="gradient">
             Blogs
           </Button>
@@ -69,8 +69,8 @@ const Navbar = () => {
   );
 
   return (
-    <div>
-      <nav className="bg-white w-full top-0 z-20">
+    <div className=" bg-gradient-to-r h-[10vh] from-purple-700 via-indigo-400 to-purple-800 rounded-xl m-4">
+      <nav className=" rounded-xl ">
         <div className="items-center  px-4 max-w-screen-xl mx-auto lg:flex lg:px-8">
           <div className="flex items-center justify-between py-3 lg:py-4 lg:block">
             <label

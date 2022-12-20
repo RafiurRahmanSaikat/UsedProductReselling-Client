@@ -7,10 +7,10 @@ const Card = ({ data }) => {
 
   return (
     <>
-      <article className="flex flex-col p-4 rounded-3xl outline outline-1 -outline-offset-4">
+      <article className="flex flex-col bg-gradient-to-t from-gray-900 via-purple-900 to-violet-600  p-4 rounded-3xl outline outline-4  outline-offset-4">
         <img
           alt=""
-          className="rounded-md object-contain p-4 w-full h-52 bg-gray-400"
+          className="rounded-md object-contain p-4 w-full h-52 "
           src={brandPic}
         />
 

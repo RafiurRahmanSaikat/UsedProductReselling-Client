@@ -30,7 +30,7 @@ const Footer = () => {
   ];
   return (
     <>
-      <footer className="text-gray-800  px-4 py-5 max-w-screen-xl mx-auto">
+      <footer className="text-gray-800 bg-white m-16  px-4 py-5 max-w-screen-xl mx-auto">
         <div className="max-w-lg sm:mx-auto sm:text-center">
           <img src={LOGO} className="w-32 justify-center mx-auto " alt="" />
           <p className="leading-relaxed mt-2 text-xl">

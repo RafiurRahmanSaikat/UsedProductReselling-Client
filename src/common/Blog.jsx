@@ -3,12 +3,12 @@ import React from "react";
 const Blog = () => {
   return (
     <>
-      <section className=" text-gray-800">
+      <section className="  text-gray-800">
         <div className="container flex flex-col justify-center p-4 mx-auto md:p-8">
           <h2 className="mb-12 text-4xl font-bold leading-none text-center sm:text-5xl">
             My Blogs
           </h2>
-          <div className="grid gap-10 md:gap-8 sm:p-3 md:grid-cols-2 lg:px-12 xl:px-32">
+          <div className="grid gap-10 bg-white  md:gap-8 sm:p-3 md:grid-cols-2 lg:px-12 xl:px-32">
             <div>
               <h3 className="font-semibold">
                 What are the different ways to manage a state in a React
@@ -87,6 +87,7 @@ const Blog = () => {
               </p>
             </div>
           </div>
+          
         </div>
       </section>
     </>

@@ -2,8 +2,8 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <section>
-      <div className="bg-gradient-to-r from-cyan-500 via-purple-500 to-blue-500 rounded-3xl ">
+    <section className="mx-6">
+      <div className="bg-gradient-to-r  from-cyan-500 via-purple-500 to-blue-500 rounded-3xl ">
         <div className="container flex flex-col items-center px-4 py-16 pb-24 mx-auto text-center lg:pb-56 md:py-32 md:px-10 lg:px-32 text-gray-900">
           <h1 className="text-5xl font-bold leading-none sm:text-6xl xl:max-w-3xl text-gray-50">
             Buy Your Dream Bike !!
